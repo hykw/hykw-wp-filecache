@@ -1,14 +1,13 @@
 <?php
   /**
    * @package HYKW file cache plugin
-   * @version 0.1
+   * @version 1.0
    */
   /*
     Plugin Name: HYKW file cache plugin
     Plugin URI: https://github.com/hykw/hykw-wp-filecache
     Description: ファイルキャッシュプラグイン
-    Author: hitoshi-hayakawa
-    Version: 0.1
+    Author: Hitoshi Hayakawa
   */
 
 class hykwFileCache
@@ -16,9 +15,17 @@ class hykwFileCache
   private $cachedir;
   private $obs_min;
 
-  # キャッシュディレクトリ, キャッシュの寿命（分単位）
-  # e.g.
-  #   ('/tmp/cache', 1440)
+  /**
+   * __construct コンストラクタ
+   * 
+   例）
+   <pre>
+     $obj = new hykwFileCache('/tmp/cache', 1440);
+   <pre>
+   * 
+   * @param string $cachedir キャッシュディレクトリ
+   * @param integer $cache_obs_min キャッシュの寿命（分単位）
+   */
   function __construct($cachedir, $cache_obs_min = 1440)
   {
     $this->cachedir = $cachedir;
@@ -29,7 +36,12 @@ class hykwFileCache
       mkdir($cachedir, 0755);
   }
 
-  # not found/obsolete の場合、FALSEを返す
+  /**
+   * readData キャッシュからデータを取得する
+   * 
+   * @param string $filename キャッシュファイル名
+   * @return string 取得したデータ（見つからない場合、あるいはexpireしてる場合はFALSE）
+   */
   function readData($filename)
   {
     $cache_dirFile = sprintf('%s/%s', $this->cachedir, $filename);
@@ -47,6 +59,12 @@ class hykwFileCache
   }
   
 
+  /**
+   * writeData キャッシュにデータを書き込む
+   * 
+   * @param string $filename キャッシュファイル名
+   * @param string $content 書き込むデータ
+   */
   function writeData($filename, $content)
   {
     $cache_dirFile = sprintf('%s/%s', $this->cachedir, $filename);

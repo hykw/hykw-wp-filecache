@@ -51,7 +51,7 @@ class hykwFileCache
     $ctime = @filectime($cache_dirFile);
     if ( ($ctime == FALSE) || (($ctime + $this->obs_min*60) < time()) ) {
       # キャッシュは無効
-      unlink($cache_dirFile);
+      @unlink($cache_dirFile);
       return FALSE;
     }
 

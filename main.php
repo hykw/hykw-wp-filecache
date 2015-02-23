@@ -68,9 +68,12 @@ class hykwFileCache
   function writeData($filename, $content)
   {
     $cache_dirFile = sprintf('%s/%s', $this->cachedir, $filename);
-    $fp = fopen($cache_dirFile, 'w');
-    fputs($fp, $content);
-    fclose($fp);
+    $fp = @fopen($cache_dirFile, 'w');
+
+    if ($fp != FALSE) {
+      fputs($fp, $content);
+      fclose($fp);
+    }
   }
 
 }

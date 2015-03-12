@@ -55,7 +55,8 @@ class hykwFileCache
       return FALSE;
     }
 
-    return file_get_contents($cache_dirFile);
+    $contents =  @file_get_contents($cache_dirFile);
+    return $contents;
   }
   
 
